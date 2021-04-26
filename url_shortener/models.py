@@ -1,6 +1,5 @@
-
-
 from django.db import models
+from extensions.utils import datetime_to_jalali_str
 
 # Create your models here.
 
@@ -12,3 +11,6 @@ class URL(models.Model):
 
     def __str__(self):
         return self.code
+
+    def jcreated(self):
+        return datetime_to_jalali_str(self.created)
