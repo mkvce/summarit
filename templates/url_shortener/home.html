@@ -1,0 +1,33 @@
+{% extends 'url_shortener/base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'url_shortener/css/home.css' %}">
+{% endblock %}
+
+{% block header %}
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top mb-4">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-center mr-5" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">ورود</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">ثبت نام</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">درباره ما</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <header class="hero text-white d-row-flex d-lg-flex align-items-center text-center justify-content-center">
+    <div class="hero-bg position-absolute"></div>
+    <div class="title mx-5 text-center display-2">کوتاه کننده لینک با جنگو</div>
+    <img id="header-img" class="w-75 w-lg-50 mt-3" src="{% static 'url_shortener/img/link.png' %}" alt="ًََURL Shortener" />
+  </header>
+{% endblock %}

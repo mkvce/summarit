@@ -1,0 +1,20 @@
+.hero {
+  font-family: 'Almarai', sans-serif;
+}
+
+.hero-bg {
+  height: 100%;
+  width: 100%;
+  z-index: -10;
+  background-color: black;
+  transform: skewY(-7deg) scaleY(2) translateY(-30%);
+}
+
+#header-img {
+  z-index: -5;
+}
+
+.nav-link {
+  font-family: 'Harmattan', sans-serif;
+  font-size: 24px !important;
+}

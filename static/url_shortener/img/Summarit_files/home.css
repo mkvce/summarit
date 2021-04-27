@@ -1,0 +1,32 @@
+.hero {
+  color: white;
+  font-family: 'Almarai', sans-serif;
+}
+
+.hero-bg {
+  height: 100%;
+  width: 100%;
+  z-index: -10;
+  background-color: blue;
+  transform: skewY(-10deg) scaleY(2) translateY(-30%);
+}
+
+.title {
+  font-size: 4rem;
+  font-size: 6rem;
+  font-weight: lighter;
+}
+
+@media only screen and (min-width:1000px) {
+  .hero-bg {
+    
+  }
+  .title {
+    
+  }
+}
+
+#header-img {
+  max-width: 40%;
+  z-index: -100;
+}
