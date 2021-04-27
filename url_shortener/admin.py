@@ -6,7 +6,7 @@ from url_shortener.models import URL, UserProfile, Code
 
 @admin.register(URL)
 class URLAdmin(admin.ModelAdmin):
-    list_display = ('label', 'user', 'jcreated', 'short')
+    list_display = ('label', 'user', 'jcreated', 'short', 'visits')
     search_fields = ('label',)
     ordering = ('-created',)
 

@@ -16,7 +16,7 @@ class URL(models.Model):
     )
     address = models.URLField(max_length=256, verbose_name='آدرس لینک')
     label = models.CharField(max_length=128, blank=True, verbose_name='برچسب')
-    visits = models.PositiveIntegerField(default=0, verbose_name="تعداد بازدیدها")
+    visits = models.PositiveIntegerField(default=0, verbose_name="تعداد بازدیدها", editable=False)
     created = models.DateTimeField(auto_now_add=True, verbose_name='ایجاد شده در')
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='urls', verbose_name='ایجادکننده')
@@ -37,6 +37,10 @@ class URL(models.Model):
         return str(self.code)
     short.short_description = 'لینک کوتاه'
 
+    def increase_visits(self):
+        self.visits += 1
+        super().save()
+
     def save(self):
         super().save()
         code, created = Code.objects.get_or_create(target=self)
@@ -44,10 +48,6 @@ class URL(models.Model):
         code.target = self
         code.save()
         return super().save()
-
-    def increase_visits(self):
-        self.visits += 1
-        super().save()
 
 
 class UserProfile(models.Model):
