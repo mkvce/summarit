@@ -36,7 +36,7 @@ def datetime_to_jalali_str(time):
     )
     time = timezone.localtime(time)
     year, month, day = jalali.Gregorian(time.year, time.month, time.day).persian_tuple()
-    jalali_to_str = '{} {} {} ، ساعت {:02d}:{:02d}'.format(
+    jalali_to_str = '{} {} {}، ساعت {:02d}:{:02d}'.format(
         day,
         jalali_month[month-1],
         year,
