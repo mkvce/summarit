@@ -1,30 +1,13 @@
 {% extends 'url_shortener/base.html' %}
 {% load static %}
+{% load url_shortener_template_tags %}
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'url_shortener/css/home.css' %}">
 {% endblock %}
 
 {% block navbar %}
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
-    <a class="navbar-brand" href="#"><i class="fas fa-link"></i></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse text-center mr-5" id="collapsibleNavbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="#">ورود</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ثبت نام</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">درباره ما</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  {% navbar user %}
 {% endblock %}
 
 {% block header %}
@@ -37,6 +20,5 @@
 {% block main %}
   <main>
     <h1 class="text-center display-4">آدرس‌های پربازدید</h1>
-    
   </main>
 {% endblock %}
