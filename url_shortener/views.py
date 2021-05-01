@@ -14,3 +14,6 @@ def short_url(request, code):
     url = get_object_or_404(Code, slug=code).target
     url.increase_visits()
     return HttpResponseRedirect(url.address)
+
+def register(request):
+    pass
