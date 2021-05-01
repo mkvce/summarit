@@ -18,10 +18,12 @@ class UserForm(forms.ModelForm):
         password = data.get('password')
         password_repeat = data.get('password_repeat')
         if password_repeat != password:
-            self.add_error('password_repeat', forms.ValidationError('رمزعبورها یکسان نیستند!', code='password_match'))
+            self.add_error('password_repeat',
+                           forms.ValidationError('رمزعبورها یکسان نیستند!',
+                                                 code='password_match'))
         return data
 
-class UserProfile(forms.ModelForm):
+class UserProfileForm(forms.ModelForm):
     
     class Meta:
         model = UserProfile
