@@ -5,11 +5,27 @@
   </button>
   <div class="collapse navbar-collapse text-center mr-5" id="collapsibleNavbar">
     <ul class="navbar-nav">
-      {% for text, link in nav_items.items %}
+      {% if not user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ link }}">{{ text }}</a>
+          <a class="nav-link" href="#">ورود</a>
         </li>
-      {% endfor %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'url_shortener:register' %}">ثبت‌نام</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">درباره ما</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">آپشن ۱</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">آپشن ۲</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">آپشن ۳</a>
+        </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

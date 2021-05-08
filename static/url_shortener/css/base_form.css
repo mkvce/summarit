@@ -1,0 +1,9 @@
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    box-shadow: white 1px 1px 5px;
+}
+
+.h-100vh {
+    height: 100vh;
+}

@@ -1,16 +1,15 @@
 .hero {
-  font-family: 'Almarai', sans-serif;
-  position: relative;
-  border-bottom-left-radius: 20%;
-  border-bottom-right-radius: 20%;
-  background: linear-gradient(to bottom right, #444, #000);
+    font-family: 'Almarai', sans-serif;
+    position: relative;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
 }
 
 .nav-link {
-  font-family: 'Harmattan', sans-serif;
-  font-size: 24px;
+    font-family: 'Harmattan', sans-serif;
+    font-size: 24px;
 }
 
 h1 {
-  font-family: 'Harmattan', sans-serif;
+    font-family: 'Harmattan', sans-serif;
 }

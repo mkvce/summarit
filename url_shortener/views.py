@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from url_shortener.models import URL, Code
 from url_shortener.forms import UserForm, UserProfileForm
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login
+
 
 # Create your views here.
 
@@ -16,6 +17,7 @@ def short_url(request, code):
     url.increase_visits()
     return HttpResponseRedirect(url.address)
 
+
 def register(request):
     registered = False
     if request.method == 'POST':
@@ -25,12 +27,14 @@ def register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-            profile = profile_form.save()
+            profile = profile_form.save(commit=False)
             profile.user = user
-            if 'picture' in request.FILES:
-                profile.photo = request.FILES['picture']
+            if 'photo' in request.FILES:
+                profile.photo = request.FILES['photo']
             profile.save()
             registered = True
+            login(request, user)
+            return redirect('url_shortener:home')
         else:
             print(user_form.errors, profile_form.errors)
     else:

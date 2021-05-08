@@ -1,0 +1,61 @@
+{% extends 'url_shortener/base_form.html' %}
+
+{% block title %}
+  {{ block.super }}ثبت نام
+{% endblock %}
+
+{% block form_title %}
+  ثبت نام
+{% endblock %}
+
+{% block form %}
+  <form id="user_form" class="p-2 m-2 text-center text-light" method="POST"
+        action="{% url 'url_shortener:register' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for hidden in user_form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    {% for field in user_form.visible_fields %}
+      {% for error in field.errors %}
+        <div class="text-right alert alert-danger alert-dismissible fade show">
+          {{ error }}
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+      {% endfor %}
+      <div class="form-group row">
+        <div class="col-sm-5 text-right">{{ field.label_tag }}</div>
+        <div class="col-sm-7">{{ field }}</div>
+      </div>
+    {% endfor %}
+    {% for hidden in profile_form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    {% for field in profile_form.visible_fields %}
+      {% for error in field.errors %}
+        <div class="text-right alert alert-danger alert-dismissible fade show">
+          {{ error }}
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+      {% endfor %}
+      <div class="form-group row">
+        <div class="col-sm-5 text-right">{{ field.label_tag }}</div>
+        <div class="col-sm-7">{{ field }}</div>
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-lg btn-outline-light mt-2">ثبت نام</button>
+  </form>
+
+  <script type="text/javascript">
+    $(function () {
+      let field_input;
+      {% for field in user_form.visible_fields %}
+        field_input = $("#{{ field.auto_id }}");
+        if (field_input) {
+          {% if field.errors %}
+            field_input.addClass("is-invalid");
+          {% endif %}
+        }
+      {% endfor %}
+    });
+  </script>
+{% endblock %}

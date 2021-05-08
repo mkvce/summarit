@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib import admin
 from extensions.utils import datetime_to_jalali_str
-from django.urls import reverse
 import random
 import string
 
