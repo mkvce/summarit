@@ -1,6 +1,8 @@
 from django import forms
-from url_shortener.models import UserProfile
+from django.core.exceptions import ValidationError
+from url_shortener.models import UserProfile, URL
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class UserForm(forms.ModelForm):
@@ -24,14 +26,25 @@ class UserForm(forms.ModelForm):
     def clean_password_repeat(self):
         data = self.cleaned_data
         if data.get('password_repeat') != data.get('password'):
-            raise forms.ValidationError('رمزعبورها یکسان نیستند!',
-                                        code='password_match')
+            raise ValidationError(_('گذرواژه‌ها یکسان نیستند!'),
+                                  code='password_match')
         return data
 
 
 class UserProfileForm(forms.ModelForm):
-    birthdate = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'date', 'class': 'form-control'}), label='تاریخ تولد')
+    birthdate = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'date', 'class': 'form-control'}),
+                                    label='تاریخ تولد')
 
     class Meta:
         model = UserProfile
         fields = ('birthdate', 'photo')
+
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(), label="نام کاربری")
+    password = forms.CharField(widget=forms.PasswordInput(), min_length=6, label="گذرواژه")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'

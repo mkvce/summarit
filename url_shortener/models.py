@@ -4,6 +4,7 @@ from extensions.utils import datetime_to_jalali_str
 import random
 import string
 
+
 # Create your models here.
 
 
@@ -19,6 +20,7 @@ class URL(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='ایجاد شده در')
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='urls', verbose_name='ایجادکننده')
+
     status = models.CharField(max_length=1, choices=STATUS_CHOICES,
                               default=STATUS_CHOICES[0][0], verbose_name='وضعیت')
 
@@ -30,23 +32,25 @@ class URL(models.Model):
 
     def jcreated(self) -> str:
         return datetime_to_jalali_str(self.created)
+
     jcreated.short_description = 'ایجاد شده در'
 
     def short(self) -> str:
         return str(self.code)
+
     short.short_description = 'لینک کوتاه'
 
     def increase_visits(self):
         self.visits += 1
         super().save()
 
-    def save(self):
-        super().save()
+    def save(self, **kwargs):
+        super().save(**kwargs)
         code, created = Code.objects.get_or_create(target=self)
         code.slug = Code.slug_generator()
         code.target = self
         code.save()
-        return super().save()
+        return super().save(**kwargs)
 
 
 class UserProfile(models.Model):
@@ -61,7 +65,7 @@ class UserProfile(models.Model):
 
 class Code(models.Model):
     slug = models.SlugField(max_length=6, verbose_name='کلید', unique=True)
-    target = models.OneToOneField(URL, on_delete=models.CASCADE, 
+    target = models.OneToOneField(URL, on_delete=models.CASCADE,
                                   related_name='code', verbose_name='مقصد')
 
     def __str__(self):
@@ -70,7 +74,6 @@ class Code(models.Model):
     @classmethod
     def slug_generator(cls) -> str:
         slug = ''
-        while len(slug) < 6 or cls.objects.filter(slug=slug).count():
-            slug = ''.join(random.choices(string.ascii_uppercase + string.digits,
-                                          k=6))
+        while len(slug) < 6 or cls.objects.filter(slug=slug):
+            slug = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
         return slug

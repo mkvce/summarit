@@ -1,0 +1,38 @@
+{% extends 'url_shortener/base_form.html' %}
+
+{% block title %}
+  {{ block.super }}ورود
+{% endblock %}
+
+{% block form_title %}
+  ورود
+{% endblock %}
+
+{% block form %}
+  <form id="login_form" class="p-2 m-2 text-center text-light" method="POST"
+        action="{% url 'url_shortener:login' %}">
+    {% csrf_token %}
+    {% for hidden in login_form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    {% for error in login_form.non_field_errors %}
+      <div class="text-right alert alert-danger alert-dismissible fade show">
+        {{ error }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endfor %}
+    {% for field in login_form.visible_fields %}
+      {% for error in field.errors %}
+        <div class="text-right alert alert-danger alert-dismissible fade show">
+          {{ error }}
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+      {% endfor %}
+      <div class="form-group row">
+        <div class="col-sm-5 text-right">{{ field.label_tag }}</div>
+        <div class="col-sm-7">{{ field }}</div>
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-lg btn-outline-light mt-2">ورود</button>
+  </form>
+{% endblock %}

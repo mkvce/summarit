@@ -7,7 +7,7 @@
     <ul class="navbar-nav">
       {% if not user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="#">ورود</a>
+          <a class="nav-link" href="{% url 'url_shortener:login' %}">ورود</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'url_shortener:register' %}">ثبت‌نام</a>
@@ -23,7 +23,7 @@
           <a class="nav-link" href="#">آپشن ۲</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">آپشن ۳</a>
+          <a class="nav-link" href="{% url 'url_shortener:logout' %}">خروج</a>
         </li>
       {% endif %}
     </ul>
