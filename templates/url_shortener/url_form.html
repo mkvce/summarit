@@ -1,0 +1,34 @@
+<form class="form-inline justify-content-center p-2 m-2 bg-light shadow"
+      action="{% url 'url_shortener:add_url' %}" method="POST">
+  {% csrf_token %}
+  {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+  {% endfor %}
+  <div class="form-row">
+    {% for field in form.visible_fields %}
+      <div class="col">
+        {{ field }}
+        {% for error in field.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <div class="col">
+      <button type="submit" class="btn btn-success">افزودن</button>
+    </div>
+  </div>
+</form>
+
+<script type="text/javascript">
+  $(function () {
+    let field_input;
+    {% for field in form.visible_fields %}
+      field_input = $("#{{ field.auto_id }}");
+      if (field_input) {
+        {% if field.errors %}
+          field_input.addClass("is-invalid");
+        {% endif %}
+      }
+    {% endfor %}
+  });
+</script>

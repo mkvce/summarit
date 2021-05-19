@@ -40,6 +40,17 @@ class UserProfileForm(forms.ModelForm):
         fields = ('birthdate', 'photo')
 
 
+class URLForm(forms.ModelForm):
+    address = forms.URLField(max_length=256,
+                             widget=forms.TextInput(attrs={'placeholder': 'آدرس لینک', 'class': 'form-control'}))
+    label = forms.CharField(max_length=128,
+                            widget=forms.TextInput(attrs={'placeholder': 'برچسب', 'class': 'form-control'}))
+
+    class Meta:
+        model = URL
+        fields = ('address', 'label')
+
+
 class UserLoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(), label="نام کاربری")
     password = forms.CharField(widget=forms.PasswordInput(), min_length=6, label="گذرواژه")

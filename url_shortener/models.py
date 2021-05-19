@@ -50,6 +50,7 @@ class URL(models.Model):
         code.slug = Code.slug_generator()
         code.target = self
         code.save()
+        print("----- URL Added -----")
         return super().save(**kwargs)
 
 

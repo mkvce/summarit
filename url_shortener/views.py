@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from url_shortener.models import URL, Code
-from url_shortener.forms import UserForm, UserProfileForm, UserLoginForm
+from url_shortener.forms import UserForm, UserProfileForm, UserLoginForm, URLForm
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -11,7 +11,7 @@ from django.core.exceptions import ValidationError
 
 
 def home(request):
-    return render(request, 'url_shortener/home.html')
+    return render(request, 'url_shortener/home.html', {'url_form': URLForm()})
 
 
 def short_url(request, code):
@@ -44,6 +44,20 @@ def register(request):
     context_dict = {'user_form': user_form, 'profile_form': profile_form,
                     'registered': registered}
     return render(request, 'url_shortener/register.html', context_dict)
+
+
+@login_required()
+def add_url(request):
+    if request.method == 'GET':
+        return redirect('url_shortener:home')
+    url_form = URLForm(data=request.POST)
+    if url_form.is_valid():
+        url = url_form.save(commit=False)
+        url.user = request.user
+        url.save()
+    else:
+        return render(request, 'url_shortener/home.html', {'url_form': url_form})
+    return render(request, 'url_shortener/home.html', {'url_form': URLForm()})
 
 
 def user_login(request):
