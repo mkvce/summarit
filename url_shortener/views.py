@@ -56,8 +56,10 @@ def add_url(request):
         url.user = request.user
         url.save()
     else:
-        return render(request, 'url_shortener/home.html', {'url_form': url_form})
-    return render(request, 'url_shortener/home.html', {'url_form': URLForm()})
+        return render(request, 'url_shortener/home.html',
+                      {'url_form': url_form, 'fail_message': 'افزودن آدرس موفقیت‌آمیز نبود'})
+    return render(request, 'url_shortener/home.html',
+                  {'url_form': URLForm(), 'success_message': 'آدرس با موفقیت اضافه شد'})
 
 
 def user_login(request):
@@ -87,3 +89,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('url_shortener:login')
+
+
+def dashboard(request):
+    pass
